@@ -4,8 +4,13 @@ This repository contains applied projects in Signal Processing and
 Machine Learning using Python.
 
 ## Projects
-- Audio Signal Denoising using FFT and Digital Filters
-- Anomaly Detection in Sensor Signals using Feature Extraction and ML
+
+### 1. Audio Signal Denoising
+- Noise removal using FFT and digital filtering
+
+### 2. Signal Anomaly Detection
+- Feature extraction from signals
+- Machine learning model for abnormal behavior detection
 
 ## Skills
 - Signal Processing (Time & Frequency Domain)
