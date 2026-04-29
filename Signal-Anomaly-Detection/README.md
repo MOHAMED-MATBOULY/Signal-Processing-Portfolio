@@ -1,189 +1,143 @@
-Signal Anomaly Detection Using DSP and Machine Learning 🚨 
+# Signal Anomaly Detection Using DSP and Machine Learning 🚨
 
-This project demonstrates signal anomaly detection using a combination of Digital Signal Processing (DSP) techniques and machine learning. The goal is to distinguish between normal (clean) and abnormal (noisy) signals by extracting meaningful features from both the time domain and frequency domain, followed by classification using a Random Forest model. 
+This project demonstrates **signal anomaly detection** using a combination of
+**Digital Signal Processing (DSP)** techniques and **machine learning**.
+The goal is to distinguish between **normal (clean)** and **abnormal (noisy)**
+signals based on time-domain and frequency-domain features.
 
- 
+---
 
-📌 Project Overview 
+## 📌 Project Overview
 
-In many real-world systems (e.g., vibration monitoring, sensor networks, industrial machines), signals are often corrupted by noise or abnormal behavior. This project simulates such a scenario by: 
+In many real-world applications such as vibration monitoring, sensor networks,
+and industrial machines, signals are often corrupted by noise or abnormal behavior.
 
-Generating a multi-frequency signal 
+This project simulates such a scenario by:
+- Generating a multi-frequency signal
+- Injecting controlled noise
+- Applying digital filtering to recover normal behavior
+- Extracting meaningful features
+- Training a machine learning model to detect anomalies
 
-Injecting controlled noise 
+The focus is on **engineering intuition and interpretability**, not just accuracy.
 
-Applying digital filtering to recover normal behavior 
+---
 
-Extracting discriminative features 
+## 🔊 Signal Model
 
-Training a machine learning classifier to detect anomalies 
+- **Base signal**: Sum of three sinusoidal components with different frequencies and phases
+- **Sampling frequency**: 150 Hz
+- **Normal signals**: Noisy signal passed through a Butterworth low-pass filter
+- **Abnormal signals**: Noisy signal without filtering
 
-The project focuses on interpretability and engineering intuition, not just accuracy. 
+This setup mimics realistic sensor noise and fault conditions.
 
- 
+---
 
-🔊 Signal Model 
+## 🧠 Feature Extraction
 
-Base signal: Sum of three sinusoidal components with different frequencies and phases 
+Each signal instance is represented using a set of discriminative features.
 
-Sampling frequency: 150 Hz 
+### Time-Domain Features
+- Mean
+- Root Mean Square (RMS)
+- Energy
+- Standard Deviation (STD)
 
-Normal signals: Noisy signal passed through a Butterworth low-pass filter 
+### Frequency-Domain Features
+- Dominant Frequency
+- Spectral Energy
+- Spectral Centroid
 
-Abnormal signals: Noisy signal without filtering 
+These features capture both **signal strength** and **spectral behavior**, which
+are critical for anomaly detection.
 
-This setup emulates practical scenarios such as sensor noise and vibration disturbances. 
+---
 
- 
+## 📊 Feature Space Visualization
 
-🧠 Feature Extraction 
+Before applying machine learning, a feature-space visualization is used to
+build intuition:
 
-Features are extracted from each signal instance to characterize its behavior. 
+- **Dominant Frequency vs RMS**
 
-Time-Domain Features 
+This scatter plot highlights the separation between normal and abnormal signals
+and justifies the use of a classifier.
 
-Mean 
+Saved figure:
+- `figures/feature_scatter.png`
 
-Root Mean Square (RMS) 
+---
 
-Energy 
+## 🤖 Machine Learning Model
 
-Standard Deviation (STD) 
+- **Classifier**: Random Forest
+- **Train/Test split**: 70% / 30% (stratified)
+- **Feature scaling**: StandardScaler (fit on training data only)
 
-Frequency-Domain Features 
+Although tree-based models do not strictly require feature scaling, it is applied
+as a **best practice** and to keep the pipeline extensible to other models.
 
-Dominant Frequency 
+---
 
-Spectral Energy 
+## 📈 Evaluation Metrics
 
-Spectral Centroid 
+Model performance is evaluated using:
+- Accuracy
+- Confusion Matrix
+- Precision, Recall, and F1-score
+- Feature Importance
 
-These features capture both signal strength and spectral structure, which are essential for anomaly detection. 
+Saved figure:
+- `figures/confusion_matrix.png`
 
- 
+Feature importance analysis shows that **noise-related features (RMS, energy,
+spectral energy)** play a dominant role in distinguishing abnormal signals.
 
-📊 Feature Visualization 
+---
 
-To gain intuition before applying machine learning, a feature-space visualization is used: 
+## 📂 Project Structure
 
-Dominant Frequency vs RMS 
+Signal-Anomaly-Detection/
+│
+├── signal_anomaly_detection.py
+├── figures/
+│   ├── feature_scatter.png
+│   └── confusion_matrix.png
+├── README.md
+└── requirements.txt
+---
 
-This scatter plot highlights the separation between normal and abnormal signals and provides a clear justification for using a classifier. 
+## 🛠️ Requirements
 
-Saved figures: 
+Install the required Python libraries using:
 
-figures/feature_scatter.png 
+```bash
+pip install -r requirements.txt
 
- 
+requirements.txt
+numpy
+scipy
+matplotlib
+seaborn
+scikit-learn
 
-🤖 Machine Learning Model 
+✅ Key Takeaways
 
-Classifier: Random Forest 
+DSP-based features provide strong physical interpretability
+Visualization helps validate feature usefulness before ML
+Machine learning complements signal processing, not replaces it
+Avoiding data leakage is critical for reliable evaluation
 
-Train/Test split: 70% / 30% (stratified) 
 
-Feature scaling: StandardScaler (fit on training data only) 
+📌 Notes
+This project is designed to be:
 
-Although tree-based models do not strictly require feature scaling, it is included as a best practice and to keep the pipeline extensible to other models. 
+Educational
+Interpretable
+Portfolio-ready
+Suitable for real-world sensor anomaly detection tasks
 
- 
 
-📈 Evaluation Metrics 
-
-The model performance is evaluated using: 
-
-Accuracy 
-
-Confusion Matrix 
-
-Precision, Recall, and F1-score 
-
-Feature Importance 
-
-Saved figures: 
-
-figures/confusion_matrix.png 
-
-Feature importance analysis shows that noise-related features (RMS, energy, spectral energy) play a dominant role in distinguishing abnormal signals. 
-
- 
-
-📂 Project Structure 
-
-1     Signal-Anomaly-Detection/ 
-
-2     │ 
-
-3     ├── signal_anomaly_detection.py 
-
-4     ├── figures/ 
-
-5     │   ├── feature_scatter.png 
-
-6     │   └── confusion_matrix.png 
-
-7     ├── README.md 
-
-8     └── requirements.txt 
-
-9      
-
- 
-
-🛠️ Requirements 
-
-Install the required Python libraries using: 
-
-1     pip install -r requirements.txt 
-
-2      
-
-requirements.txt: 
-
-1     numpy 
-
-2     scipy 
-
-3     matplotlib 
-
-4     seaborn 
-
-5     scikit-learn 
-
-6      
-
- 
-
-✅ Key Takeaways 
-
-DSP-based features provide strong physical interpretability 
-
-Visualization helps validate feature usefulness before ML 
-
-Machine learning complements signal processing, not replaces it 
-
-Avoiding data leakage is critical for reliable evaluation 
-
- 
-
-📌 Notes 
-
-This project is designed to be: 
-
-Educational 
-
-Interpretable 
-
-Portfolio-ready 
-
-Suitable for real-world sensor anomaly detection tasks 
-
- 
-
-👤 Author 
-
-Signal Processing Portfolio Project 
-
- 
-
-📬 Feel free to explore, reuse, or extend this project for learning or practical applications. 
+👤 Author
+Signal Processing Portfolio Project
